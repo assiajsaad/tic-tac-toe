@@ -17,7 +17,7 @@ function Gameboard() {
   function addMarker(row, column, player) {
     if (
       board[row][column].getValue() === "X" ||
-      board[row][column].getValue() === "0"
+      board[row][column].getValue() === "O"
     ) {
       return;
     }
@@ -78,6 +78,7 @@ function GameController(
     board.printBoard();
     console.log(`${getActivePlayer().name}'s turn`);
   }
+
   function playRound(row, column) {
     console.log(
       `Adding ${
