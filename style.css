@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.container {
+    padding: 2%;
+    margin-top: 5%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 50%;
+    width: 50%;
+    border: 1px solid black;
+
+}
+
+.turn {
+    grid-row: 1 / 2;
+    justify-self: center;
+}
+
+.board {
+    grid-row: 2 / 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 2%;
+}
