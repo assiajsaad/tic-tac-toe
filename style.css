@@ -28,3 +28,16 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
     gap: 2%;
 }
+
+
+.game-result {
+    display: none;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+.game-result.show {
+    display: block;
+}
