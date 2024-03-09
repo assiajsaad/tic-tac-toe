@@ -113,4 +113,49 @@ function GameController(
   };
 }
 
-let game = GameController();
+function ScreenController() {
+  const game = GameController();
+  const playerTurnDiv = document.querySelector('.turn');
+  const boardDiv = document.querySelector('.board');
+
+  function updateScreen(){
+    boardDiv.textContent = '';
+
+    const board = game.getBoard();
+    const activePlayer = game.getActivePlayer();
+    playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+    board.forEach((row,rowIndex)=>{
+      row.forEach((cell,columnIndex)=>{
+        let cellButton = document.createElement('button');
+        cellButton.classList.add('cell');
+        cellButton.dataset.row = rowIndex;
+        cellButton.dataset.column = columnIndex;
+        cellButton.textContent = cell.getValue();
+        boardDiv.appendChild(cellButton);
+      })
+    })
+    
+  }
+
+  function clickHandlerBoard(event){
+    const selectedRow = event.target.dataset.row;
+    const selectedColumn = event.target.dataset.column;
+
+    if (!selectedRow || !selectedColumn) {
+      return
+    }
+    game.playRound(selectedRow,selectedColumn);
+    updateScreen();
+  }
+  boardDiv.addEventListener("click",clickHandlerBoard);
+  updateScreen();
+  
+  return {
+    updateScreen,
+  }
+
+}
+
+
+ScreenController();
