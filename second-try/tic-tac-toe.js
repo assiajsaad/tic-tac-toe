@@ -26,14 +26,7 @@ function Gameboard() {
   }
 
   function addMarker(row, column, player) {
-    // if (
-    //   board[row][column].getValue() === "X" ||
-    //   board[row][column].getValue() === "0"
-    // ) {
-    //   return;
-    // }
-    // board[row][column].addToken(player);
-
+    
     if (
         board[row][column].getValue() === "X" ||
         board[row][column].getValue() === "O"
@@ -51,7 +44,7 @@ function Gameboard() {
 }
 
 function Cell() {
-  value = ".";
+ let value = ".";
 
   function addToken(player) {
     value = player;
