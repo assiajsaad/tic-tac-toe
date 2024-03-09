@@ -41,3 +41,23 @@ body {
 .game-result.show {
     display: block;
 }
+.input-dialog {
+    display: none;
+    width: fit-content;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+  }
+  
+.input-dialog.show {
+    display: block;
+}
+
+div > input, label {
+    display: block;
+}
+
+.player-two {
+    margin-top: 12px;
+}

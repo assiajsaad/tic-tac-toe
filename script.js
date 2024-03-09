@@ -177,12 +177,14 @@ function GameController(
 }
 
 function ScreenController() {
-  const game = GameController();
   const playerTurnDiv = document.querySelector(".turn");
   const boardDiv = document.querySelector(".board");
   const winnerDiv = document.querySelector(".winner");
   const gameResult = document.querySelector(".game-result");
   const newGameBtn = document.querySelector('.btn-newgame');
+  const playerOneInput = document.querySelector('playerone');
+  const playerTwoInput = document.querySelector('playertwo');
+  const game = GameController(playerOneInput.value,playerTwoInput.value);
 
   function updateScreen() {
     boardDiv.textContent = "";
