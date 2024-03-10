@@ -92,8 +92,11 @@ function GameController(
   function playRound(row, column) {
     board.addMarker(row, column, getActivePlayer().token);
 
-    if (checkWinCondition(board)) {
+    if (checkWinCondition(board)== true) {
       winner = getActivePlayer().name;
+      return;
+    }else if(checkWinCondition(board)== 'tie'){
+      winner = 'tie';
       return;
     }
 
@@ -158,12 +161,25 @@ function GameController(
         return true;
       }
     }
+    // Check for tie
+    let tie = true;
+    board.getBoard().forEach(row => {
+      row.forEach(cell =>{
+        if(cell.getValue() ==="."){
+          tie = false;
+        }
+      })
+    })
 
-    return false;
+    return tie === true ? 'tie': false;
   }
 
   function resetBoard() {
-    board.setBoard();
+    board.getBoard().forEach(row => {
+      row.forEach(cell => {
+        cell.addToken(".");
+      });
+    });
     winner = "";
     activePlayer = players[0];
   }
@@ -206,8 +222,11 @@ function ScreenController(playerOneName, playerTwoName) {
       });
     });
 
-    if (winner !== "") {
+    if (winner !== "" && winner !=="tie") {
       winnerDiv.textContent = `${winner} is the winner !`;
+      gameResult.classList.add("show");
+    }else if(winner == "tie") {
+      winnerDiv.textContent = `It's a Tie !`;
       gameResult.classList.add("show");
     }
   }
