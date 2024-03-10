@@ -1,6 +1,4 @@
 function Gameboard() {
-
-
   const board = setBoard();
 
   function setBoard() {
@@ -92,7 +90,6 @@ function GameController(
   }
 
   function playRound(row, column) {
-   
     board.addMarker(row, column, getActivePlayer().token);
 
     if (checkWinCondition(board)) {
@@ -103,7 +100,6 @@ function GameController(
     switchPlayerTurn();
     // printNewRound();
   }
-  
 
   function checkWinCondition(board) {
     const winPatterns = [
@@ -166,6 +162,11 @@ function GameController(
     return false;
   }
 
+  function resetBoard() {
+    board.setBoard();
+    winner = "";
+    activePlayer = players[0];
+  }
   // printNewRound();
 
   return {
@@ -173,18 +174,17 @@ function GameController(
     playRound,
     getBoard: board.getBoard,
     getWinner,
+    resetBoard,
   };
 }
 
-function ScreenController() {
+function ScreenController(playerOneName, playerTwoName) {
   const playerTurnDiv = document.querySelector(".turn");
   const boardDiv = document.querySelector(".board");
   const winnerDiv = document.querySelector(".winner");
   const gameResult = document.querySelector(".game-result");
-  const newGameBtn = document.querySelector('.btn-newgame');
-  const playerOneInput = document.querySelector('playerone');
-  const playerTwoInput = document.querySelector('playertwo');
-  const game = GameController(playerOneInput.value,playerTwoInput.value);
+  const newGameBtn = document.querySelector(".btn-newgame");
+  const game = GameController(playerOneName, playerTwoName);
 
   function updateScreen() {
     boardDiv.textContent = "";
@@ -208,7 +208,7 @@ function ScreenController() {
 
     if (winner !== "") {
       winnerDiv.textContent = `${winner} is the winner !`;
-      gameResult.classList.add('show');
+      gameResult.classList.add("show");
     }
   }
 
@@ -223,15 +223,30 @@ function ScreenController() {
   }
 
   function newGame(){
-    // game.startNewGame();
+    game.resetBoard();
+    updateScreen();
     gameResult.classList.remove('show');
   }
- 
 
   boardDiv.addEventListener("click", clickHandlerBoard);
   updateScreen();
 
-  newGameBtn.addEventListener('click',newGame);
+  newGameBtn.addEventListener("click", newGame);
 }
 
-ScreenController();
+function Game() {
+  function startGame() {
+    const playerOneInput = document.querySelector("#playerone");
+    const playerTwoInput = document.querySelector("#playertwo");
+    ScreenController(playerOneInput.value, playerTwoInput.value);
+  }
+
+  document.querySelector(".btn-startgame").addEventListener("click", (e) => {
+    startGame();
+    e.preventDefault();
+    document.querySelector(".input-dialog").classList.remove("show");
+  });
+
+}
+
+Game();
